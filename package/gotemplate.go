@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./testa"
+	"./testpackage"
 	"fmt"
 )
 
@@ -21,7 +21,13 @@ func main() {
 	//...
 	fmt.Println(a)
 	fmt.Println(q)
-	testa.Func1()
+	testpackage.Func1()
+
+	//testpackage.func2()
+	//func2 is a private func
+	//.\gotemplate.go:25: cannot refer to unexported name testpackage.func2
+	//.\gotemplate.go:25: undefined: testpackage.func2
+
 }
 
 func (t T) Method1() {
