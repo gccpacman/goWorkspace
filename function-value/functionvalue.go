@@ -5,8 +5,9 @@ import (
 	"math"
 )
 
-func adder() func(int) int {
-	sum := 0
+//返回带一个int参数,返回一个int的函数
+func adder(sum int) func(int) int {
+	//sum := 0
 	return func(x int) int {
 		sum += x
 		return sum
@@ -35,28 +36,54 @@ func fibonacci() func() int {
 
 func main() {
 
-	//练习
-	f := fibonacci()
-	for i := 0; i < 10; i++ {
-		fmt.Println(f())
-	}
-
-	////////////////////////////
-
 	//函数也是值
+	fmt.Println("函数也是值")
 	hypot := func(x, y float64) float64 {
+		fmt.Println("hypot() is called")
 		return math.Sqrt(x*x + y*y)
 	}
+	fmt.Println("hypot=", hypot)
+	fmt.Println("hypot(3, 4)=", hypot(3, 4))
 
-	fmt.Println(hypot(3, 4))
+	a := func() int {
+		fmt.Println("a() is called")
+		return 0
+	}
+	fmt.Println("a=", a)     //输出变量地址
+	fmt.Println("a()=", a()) //执行函数, 输出结果
+
+	xs := map[int]func() int{
+		1: func() int {
+			fmt.Println("xs[1] is called")
+			return 1
+		},
+		2: func() int {
+			fmt.Println("xs[2] is called")
+			return 2
+		},
+	}
+
+	fmt.Println("xs[1]=", xs[1])
+	fmt.Println("xs[1]()=", xs[1]())
+	fmt.Println("xs[2]=", xs[2])
+	fmt.Println("xs[2]()=", xs[2]())
 
 	//函数闭包
-	pos, neg := adder(), adder()
+	fmt.Println("函数闭包")
+	pos, neg := adder(0), adder(0)
 	for i := 0; i < 10; i++ {
 		fmt.Println(
-			pos(i),
-			neg(-2*i),
+			"pos(i)=", pos(i),
+			"neg(-2*i)=", neg(-2*i),
+			"adder(0)(i)=", adder(0)(i),
 		)
+	}
+
+	//练习
+	fmt.Println("递归:斐波纳契闭包")
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Println("loop", i, "--", f())
 	}
 
 }
