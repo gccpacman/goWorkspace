@@ -20,12 +20,20 @@ func main() {
 		}
 	}`
 
+	// string to byte array
 	exampleJSONBytes := []byte(exampleJSON)
+	j, err1 := jason.NewObjectFromBytes(exampleJSONBytes)
 
-	j, _ := jason.NewObjectFromBytes(exampleJSONBytes)
+	log.Printf("%v-> %s (err: %s)\n", exampleJSON, exampleJSONBytes, err1)
+	name, errname := j.GetString("name")
+	age, errage := j.GetNumber("age")
+	log.Println("name:", name, ", err:", errname)
+	log.Println("age:", age, ", err:", errage)
 
-	name, _ := j.GetString("name")
-	age, _ := j.GetNumber("age")
-	log.Println("name:", name)
-	log.Println("age:", age)
+	children, errchildren := j.GetStringArray("children")
+
+	for i, child := range children {
+		log.Println(i, "th, child:", child, "err", errchildren)
+	}
+
 }

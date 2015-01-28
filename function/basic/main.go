@@ -30,7 +30,7 @@ func main() {
 	p := Vertex{7, 7}
 	fmt.Println(p.Abs())
 	/*
-	   你可以对包中的 任意 类型定义任意方法，而不仅仅是针对Struct。
+	   你可以对包中的 任意类型定义任意方法，而不仅仅是针对Struct。
 	   但是，不能对来自其他包的类型或基础类型定义方法。
 	*/
 	fv := MyFloat(-math.Sqrt2)
